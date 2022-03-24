@@ -1,0 +1,103 @@
+import { Router, Response, Request } from 'express';
+import { User } from '../model/User';
+import bcrypt from 'bcrypt';
+import { authRequired } from '../middleware/authRequired';
+
+const router = Router();
+
+router.get('/', async (req: Request, res: Response) => {
+  res.send('Hello');
+});
+
+router.post('/auth/login', async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).send({ message: 'Not valid credentials' });
+    }
+
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(404).send({ message: 'Not valid credentials' });
+    }
+
+    const token = await User.token(user.id);
+    user.tokens!.push({ token });
+
+    await user.save();
+
+    res.send({ user, token });
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
+
+router.post('/auth/register', async (req: Request, res: Response) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).send({ message: 'Email was already taken' });
+    }
+
+    const newUser = User.build({ email, password });
+    const token = await User.token(newUser.id);
+    newUser.tokens.push({ token });
+    await newUser.save();
+
+    res.send({ user: newUser, token });
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
+
+router.post(
+  '/auth/logout',
+  authRequired,
+  async (req: Request, res: Response) => {
+    try {
+      if (!req.currentUser) {
+        return res.status(400).send({ err: 'No session found' });
+      }
+
+      const user = await User.findById(req.currentUser.id);
+
+      if (!user) {
+        return res.status(404).send({ err: 'User not found' });
+      }
+
+      if (!user.tokens) {
+        return res.status(400).send({ err: 'User has 0 active sessions' });
+      }
+
+      const liveTokens = user.tokens.filter(
+        (elem) => elem.token !== req.currentUser!.token
+      );
+
+      user.tokens = liveTokens;
+
+      await user.save();
+
+      res.send(user.tokens);
+    } catch (err) {
+      res.status(500).send({ err });
+    }
+  }
+);
+
+export { router as userRouter };
+
+declare global {
+  namespace Express {
+    interface Request {
+      currentUser?: {
+        id: string;
+        token: string;
+      };
+    }
+  }
+}
