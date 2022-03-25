@@ -1,8 +1,8 @@
+import { IUserDocument } from '../src/model/interfaces/user.interface';
+
 declare namespace Express {
   export interface Request {
-    currentUser?: {
-      id: string;
-      token: string;
-    };
+    currentUser?: IUserDocument;
+    token: string;
   }
 }

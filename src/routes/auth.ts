@@ -2,11 +2,12 @@ import { Router, Response, Request } from 'express';
 import { User } from '../model/User';
 import bcrypt from 'bcrypt';
 import { authRequired } from '../middleware/authRequired';
+import { IUserDocument } from '../model/interfaces/user.interface';
 
 const router = Router();
 
 router.get('/', async (req: Request, res: Response) => {
-  res.send('Hello');
+  res.render('home');
 });
 
 router.post('/auth/login', async (req: Request, res: Response) => {
@@ -74,9 +75,7 @@ router.post(
         return res.status(400).send({ err: 'User has 0 active sessions' });
       }
 
-      const liveTokens = user.tokens.filter(
-        (elem) => elem.token !== req.currentUser!.token
-      );
+      const liveTokens = user.tokens.filter((elem) => elem.token !== req.token);
 
       user.tokens = liveTokens;
 
@@ -94,10 +93,8 @@ export { router as userRouter };
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: {
-        id: string;
-        token: string;
-      };
+      currentUser?: IUserDocument;
+      token: string;
     }
   }
 }

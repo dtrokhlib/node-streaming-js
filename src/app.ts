@@ -4,6 +4,7 @@ import express, { Express } from 'express';
 import { connect } from 'mongoose';
 import { authVerification } from './middleware/auth';
 import { userRouter } from './routes/auth';
+import path from 'path';
 
 export class Application {
   app: Express;
@@ -21,6 +22,9 @@ export class Application {
   }
 
   setup() {
+    this.app.use(express.static(path.join(__dirname, './public')));
+    this.app.set('views', path.join(__dirname, './views'));
+    this.app.set('view engine', 'ejs');
     this.app.use(express.json());
   }
 

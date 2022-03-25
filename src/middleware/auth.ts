@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../model/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
+import { IUser, IUserDocument } from '../model/interfaces/user.interface';
 
 const authVerification = async (
   req: Request,
@@ -21,7 +22,8 @@ const authVerification = async (
       return next();
     }
 
-    req.currentUser = { id, token };
+    req.currentUser = user;
+    req.token = token;
 
     next();
   } catch (err) {
@@ -34,10 +36,8 @@ export { authVerification };
 declare global {
   namespace Express {
     interface Request {
-      currentUser?: {
-        id: string;
-        token: string;
-      };
+      currentUser?: IUserDocument;
+      token: string;
     }
   }
 }
