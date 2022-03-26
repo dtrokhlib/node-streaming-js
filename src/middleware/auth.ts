@@ -9,12 +9,14 @@ const authVerification = async (
   next: NextFunction
 ) => {
   try {
-    if (!req.headers.authorization) {
+    if (!req.cookies.token) {
       return next();
     }
-    const token = req.headers.authorization.split(' ')[1];
 
-    const { id } = jwt.verify(token, process.env.CLIENT_SECRET!) as JwtPayload;
+    const { id } = jwt.verify(
+      req.cookies.token,
+      process.env.CLIENT_SECRET!
+    ) as JwtPayload;
 
     const user = await User.findById(id);
 
@@ -23,7 +25,6 @@ const authVerification = async (
     }
 
     req.currentUser = user;
-    req.token = token;
 
     next();
   } catch (err) {
@@ -32,12 +33,3 @@ const authVerification = async (
 };
 
 export { authVerification };
-
-declare global {
-  namespace Express {
-    interface Request {
-      currentUser?: IUserDocument;
-      token: string;
-    }
-  }
-}

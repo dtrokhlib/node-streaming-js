@@ -6,10 +6,6 @@ import { IUserDocument } from '../model/interfaces/user.interface';
 
 const router = Router();
 
-router.get('/', async (req: Request, res: Response) => {
-  res.render('home');
-});
-
 router.post('/auth/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -30,6 +26,7 @@ router.post('/auth/login', async (req: Request, res: Response) => {
 
     await user.save();
 
+    res.cookie('token', token);
     res.send({ user, token });
   } catch (err) {
     res.status(500).send({ err });
@@ -39,6 +36,12 @@ router.post('/auth/login', async (req: Request, res: Response) => {
 router.post('/auth/register', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res
+        .status(400)
+        .send({ message: 'Email and Password should be not empty' });
+    }
 
     const user = await User.findOne({ email });
     if (user) {
@@ -50,6 +53,7 @@ router.post('/auth/register', async (req: Request, res: Response) => {
     newUser.tokens.push({ token });
     await newUser.save();
 
+    res.cookie('token', token);
     res.send({ user: newUser, token });
   } catch (err) {
     res.status(500).send({ err });
@@ -65,6 +69,8 @@ router.post(
         return res.status(400).send({ err: 'No session found' });
       }
 
+      res.clearCookie('token');
+
       const user = await User.findById(req.currentUser.id);
 
       if (!user) {
@@ -75,13 +81,14 @@ router.post(
         return res.status(400).send({ err: 'User has 0 active sessions' });
       }
 
-      const liveTokens = user.tokens.filter((elem) => elem.token !== req.token);
+      const liveTokens = user.tokens.filter(
+        (elem) => elem.token !== req.cookies.token
+      );
 
       user.tokens = liveTokens;
 
       await user.save();
-
-      res.send(user.tokens);
+      res.render('home', { menu: 'menu-not-authorized.ejs' });
     } catch (err) {
       res.status(500).send({ err });
     }
@@ -94,7 +101,6 @@ declare global {
   namespace Express {
     interface Request {
       currentUser?: IUserDocument;
-      token: string;
     }
   }
 }

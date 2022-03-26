@@ -1,4 +1,57 @@
-img {
-  width: 1000px;
-  height: 500;
+html,
+body {
+  margin: 0;
+  padding: 0 0 40px 0;
+}
+
+.login-form {
+  margin: auto;
+  width: 400px;
+}
+
+.upload-form {
+  margin: auto;
+  width: 500px;
+}
+
+.upload-form h4,
+.login-form h4 {
+  text-align: center;
+}
+
+#upload-button,
+#login-button,
+#register-button {
+  width: 100%;
+}
+
+.video-link {
+  text-decoration: none;
+}
+
+.video-link label:hover {
+  border-color: rgb(124, 124, 124);
+  background-color: rgb(242, 242, 242);
+  cursor: pointer;
+}
+
+.footer {
+  background: #fff;
+}
+
+.scrollbar {
+  position: relative;
+  overflow: auto;
+}
+
+body::-webkit-scrollbar {
+  width: 2px;
+}
+
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
 }

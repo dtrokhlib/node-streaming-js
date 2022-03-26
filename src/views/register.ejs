@@ -1,0 +1,26 @@
+<%- include('partials/header.ejs') %>
+
+<div class="alert alert-danger" style="text-align: center; width: 450px; margin: 15px auto; display: none;"
+  role="alert">
+  This is a danger alert — check it out!
+</div>
+
+<div class="container-fluid p-5">
+
+  <form class="login-form">
+    <h4>Registration</h4>
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input type="password" class="form-control" id="exampleInputPassword1">
+    </div>
+    <button id="register-button" type="submit" class="btn btn-primary">Register</button>
+  </form>
+</div>
+
+<script src="/js/register.js"></script>
+<%- include('partials/footer.ejs') %>

@@ -5,6 +5,9 @@ import { connect } from 'mongoose';
 import { authVerification } from './middleware/auth';
 import { userRouter } from './routes/auth';
 import path from 'path';
+import { defaultRouter } from './routes/default';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
 
 export class Application {
   app: Express;
@@ -19,6 +22,7 @@ export class Application {
 
   routes() {
     this.app.use(userRouter);
+    this.app.use(defaultRouter);
   }
 
   setup() {
@@ -26,6 +30,15 @@ export class Application {
     this.app.set('views', path.join(__dirname, './views'));
     this.app.set('view engine', 'ejs');
     this.app.use(express.json());
+    this.app.use(
+      session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true,
+        cookie: { secure: true },
+      })
+    );
+    this.app.use(cookieParser());
   }
 
   async start() {
