@@ -8,6 +8,7 @@ import path from 'path';
 import { defaultRouter } from './routes/default';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
+import { uploadVideoRouter } from './routes/upload-video';
 
 export class Application {
   app: Express;
@@ -23,6 +24,7 @@ export class Application {
   routes() {
     this.app.use(userRouter);
     this.app.use(defaultRouter);
+    this.app.use(uploadVideoRouter);
   }
 
   setup() {

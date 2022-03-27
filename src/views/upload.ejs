@@ -2,16 +2,26 @@
 
 <div class="container-fluid p-1">
 
+  <div class="alert alert-danger" style="text-align: center; width: 450px; margin: 15px auto; display: none;"
+    role="alert">
+    This is a danger alert — check it out!
+  </div>
+
+
   <form class="upload-form">
     <h4>Upload video</h4>
     <label for="videoName" class="form-label">Video name</label>
     <input type="text" class="form-control" id="videoName" aria-describedby="videoName">
-    <label for="videoDescription" class="form-label">Video Description</label>
-    <input type="text" class="form-control" id="videoDescription" aria-describedby="videoDescription">
-    <label class="form-label" for="customFile">Choose your video file below:</label>
-    <input type="file" accept=".mp4,.mov,.mpeg-2,.wmv,.avi" class="form-control" id="customFile" />
+    <label for="videoDescription" class="form-label" required>Video Description</label>
+    <input type="text" class="form-control" id="videoDescription" aria-describedby="videoDescription" required>
+    <label class="form-label" for="placeholderFile">Choose your <b>image</b> placeholder below:</label>
+    <input type="file" accept=".jpg,.jpeg,.png" class="form-control" id="placeholderFile" required required>
+    <label class="form-label" for="videoFile">Choose your <b>video</b> file below:</label>
+    <input type="file" accept=".mp4,.mov,.mpeg-2,.wmv,.avi" class="form-control" id="videoFile" required>
     <button id="upload-button" type="submit" class="mt-3 btn btn-primary">Upload</button>
   </form>
 </div>
+
+<script src="/js/upload.js"></script>
 
 <%- include('partials/footer.ejs') %>
