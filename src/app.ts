@@ -9,6 +9,7 @@ import { defaultRouter } from './routes/default';
 import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import { uploadVideoRouter } from './routes/upload-video';
+import { libraryRouter } from './routes/library';
 
 export class Application {
   app: Express;
@@ -25,6 +26,7 @@ export class Application {
     this.app.use(userRouter);
     this.app.use(defaultRouter);
     this.app.use(uploadVideoRouter);
+    this.app.use(libraryRouter);
   }
 
   setup() {

@@ -19,13 +19,7 @@ router.get('/login', async (req: Request, res: Response) => {
   res.render('login', { menu: 'menu-not-authorized.ejs' });
 });
 
-router.get('/library', async (req: Request, res: Response) => {
-  const menu = req.currentUser
-    ? 'menu-authorized.ejs'
-    : 'menu-not-authorized.ejs';
 
-  res.render('library', { menu });
-});
 
 router.get('/register', async (req: Request, res: Response) => {
   if (req.currentUser) {
@@ -34,10 +28,6 @@ router.get('/register', async (req: Request, res: Response) => {
   res.render('register', { menu: 'menu-not-authorized.ejs' });
 });
 
-router.get('/upload/video', authRequired, async (req: Request, res: Response) => {
-
-  res.render('upload', { menu: 'menu-authorized.ejs' });
-});
 
 router.get('/profile', authRequired, async (req: Request, res: Response) => {
   res.render('profile', { menu: 'menu-authorized.ejs' });

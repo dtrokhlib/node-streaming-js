@@ -1,10 +1,18 @@
 import { Router, Request, Response } from 'express';
 import { authRequired } from '../middleware/authRequired';
 import { upload } from '../middleware/multer';
-import { IFile, IVideo } from '../model/interfaces/video.interface';
+import { IVideo } from '../model/interfaces/video.interface';
 import { Video } from '../model/Video';
 
 const router = Router();
+
+router.get(
+  '/upload/video',
+  authRequired,
+  async (req: Request, res: Response) => {
+    res.render('upload', { menu: 'menu-authorized.ejs' });
+  }
+);
 
 router.post(
   '/upload/video',
