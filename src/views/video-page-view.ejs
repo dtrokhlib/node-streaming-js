@@ -1,5 +1,25 @@
 <%- include('partials/header.ejs') %>
 
-Video page
+<link rel="stylesheet" href="/css/video-view.css">
+<div class="card-body">
+  <h5 class="card-title"><%= video.name %></h5>
+  <p class="card-text"><%= video.description %>
+  </p>
+</div>
+
+<div class="video-player-container">
+  <video controls class="video-player" preload="metadata"
+    poster="/media/placeholder/<%= video.placeholderFile.filename %>">
+    <source src="/media/video/<%= video.videoFile.filename %>" type="<%= video.videoFile.mimetype %>">
+    </source>
+  </video>
+</div>
+
+
+
+
+
+
+<script src="/js/video-page-view.js"></script>
 
 <%- include('partials/footer.ejs') %>

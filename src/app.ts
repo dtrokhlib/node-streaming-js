@@ -10,6 +10,7 @@ import session from 'express-session';
 import cookieParser from 'cookie-parser';
 import { uploadVideoRouter } from './routes/upload-video';
 import { libraryRouter } from './routes/library';
+import { viewVideoRouter } from './routes/view-video';
 
 export class Application {
   app: Express;
@@ -27,6 +28,7 @@ export class Application {
     this.app.use(defaultRouter);
     this.app.use(uploadVideoRouter);
     this.app.use(libraryRouter);
+    this.app.use(viewVideoRouter);
   }
 
   setup() {
@@ -47,6 +49,7 @@ export class Application {
 
   async start() {
     await connect(process.env.MONGO_DB_URL as string);
+    console.log("Node-streaming-app is connected to DB");
     await this.setup();
     await this.middlewares();
     await this.routes();
