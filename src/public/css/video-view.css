@@ -10,3 +10,39 @@
   height: 100%;
   width: 100%;
 }
+
+.comments-likes-section {
+  display: flex;
+  justify-content: center;
+}
+
+.comments-likes-section div span {
+  line-height: 55px;
+}
+
+.comments-likes-section div span a {
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+.comments-likes-section div {
+  cursor: pointer;
+  margin: 10px 10px;
+}
+
+.comments-likes-section img {
+  width: 55px;
+  height: 55px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 30%;
+}
+
+.comments-likes-section .reaction-button-wrapper:hover img {
+  border-color: cornflowerblue;
+}
+
+.comments-likes-section div span a:hover {
+  color: rgb(120, 12, 252);
+  text-decoration: underline;
+}

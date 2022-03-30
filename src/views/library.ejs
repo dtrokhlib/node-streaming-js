@@ -15,8 +15,7 @@
     <div class="row">
       <% videos1.forEach((video,index) => { %>
       <div class="col p-4">
-        <iframe class="pb-video-frame" width="100%" height="230" src="/media/video/<%= video.videoFile.filename %>"
-          frameborder="0" allowfullscreen></iframe>
+        <img class="library-preview" src="/media/placeholder/<%= video.placeholderFile.filename %>" />
         <a class="video-link" href="video/<%= video.id %>/view"><label
             class="form-control label-warning text-center"><%= video.name %></label></a>
       </div>
@@ -25,8 +24,7 @@
     <div class="row">
       <% videos2.forEach((video,index) => { %>
       <div class="col p-4">
-        <iframe class="pb-video-frame" width="100%" height="230" src="/media/video/<%= video.videoFile.filename %>"
-          frameborder="0" allowfullscreen></iframe>
+        <img class="library-preview" src="/media/placeholder/<%= video.placeholderFile.filename %>" />
         <a class="video-link" href="video/<%= video.id %>/view"><label
             class="form-control label-warning text-center"><%= video.name %></label></a>
       </div>
