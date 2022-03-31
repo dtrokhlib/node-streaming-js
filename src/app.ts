@@ -11,6 +11,8 @@ import cookieParser from 'cookie-parser';
 import { uploadVideoRouter } from './routes/upload-video';
 import { libraryRouter } from './routes/library';
 import { viewVideoRouter } from './routes/view-video';
+import { reactionRouter } from './routes/reaction';
+import { commentsRouter } from './routes/comments';
 
 export class Application {
   app: Express;
@@ -29,13 +31,15 @@ export class Application {
     this.app.use(uploadVideoRouter);
     this.app.use(libraryRouter);
     this.app.use(viewVideoRouter);
+    this.app.use(reactionRouter);
+    this.app.use(commentsRouter);
   }
 
   setup() {
     this.app.use(express.static(path.join(__dirname, './public')));
     this.app.set('views', path.join(__dirname, './views'));
     this.app.set('view engine', 'ejs');
-    this.app.use(express.json());
+    this.app.use(bodyParser.json());
     this.app.use(
       session({
         secret: 'keyboard cat',
@@ -49,7 +53,7 @@ export class Application {
 
   async start() {
     await connect(process.env.MONGO_DB_URL as string);
-    console.log("Node-streaming-app is connected to DB");
+    console.log('Node-streaming-app is connected to DB');
     await this.setup();
     await this.middlewares();
     await this.routes();

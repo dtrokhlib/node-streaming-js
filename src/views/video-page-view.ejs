@@ -17,7 +17,7 @@
 <div class="container">
   <div class="row">
     <div class="col m-auto comments-likes-section">
-      <div><span><a href="#">Comments (number)</a></span></div>
+      <div><span><a class="comments-button" href="#">Comments (number)</a></span></div>
       <div class="reaction-button-wrapper" id="likeButton"><img src="/media/like.png" alt=""></div>
       <div class="reaction-button-wrapper" id="dislikeButton"><img src="/media/dislike.png" alt=""></div>
       <div><span>Likes: (Number)</span></div>
@@ -27,10 +27,28 @@
   </div>
 </div>
 
+<div id="popup-comments-container">
+  <div class="comment-close-button"><img src="/media/icons8-close-64.png" /></div>
+  <div class="comment-section">
+    <div class="single-comment media">
+      <div class="media-body">
+        <h4 class="media-heading title">Fahmi Arif</h4>
+        <p class="komen">
+          <span>20.51 31/03/2022</span><br>
+          kalo bisa ya ndak usah gan biar cepet
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="add-comment-section">
+    <input class="form-control m-1" type="text" placeholder="Add your comment here..." minlength="2"
+      name="comment-value" id="comment-value">
+    <button class="btn btn-primary m-1 addCommentButton">Add Comment</button>
+  </div>
+</div>
 
 
-
-
+<script src="/js/add-new-comment.js"></script>
 <script src="/js/video-page-view.js"></script>
 
 <%- include('partials/footer.ejs') %>

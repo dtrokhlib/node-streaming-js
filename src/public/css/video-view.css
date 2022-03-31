@@ -46,3 +46,70 @@
   color: rgb(120, 12, 252);
   text-decoration: underline;
 }
+
+#popup-comments-container {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1990;
+  background: rgba(126, 152, 255, 0.5);
+}
+
+.comment-section {
+  width: 90vw;
+  height: 70vh;
+  background: white;
+  margin: 50px auto;
+  overflow-y: scroll;
+  border: 1px solid sandybrown;
+}
+
+.comment-section::-webkit-scrollbar {
+  width: 6px;
+}
+
+.comment-section::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.comment-section::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+}
+
+.add-comment-section {
+  margin: auto;
+  width: 80%;
+}
+
+.comment-close-button {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+
+
+.single-comment {
+  margin: 10px;
+  border-bottom: 0.5px solid rgb(255, 41, 109);
+  background: rgba(24, 24, 24, 0.571);
+  padding: 5px;
+  color: white
+}
+
+.komen {
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+.komen span {
+  font-size: 11px;
+  color: rgb(255, 255, 255);
+}
