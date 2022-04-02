@@ -33,6 +33,7 @@ router.get(
       const reaction = await Reaction.find({ videoId: id });
       const userReaction = await Reaction.findOne({
         userId: req.currentUser?.id,
+        videoId: id,
       });
 
       const like = reaction.filter((item) => item.reaction == 'like');

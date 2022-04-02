@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/favourites', authRequired, async (req: Request, res: Response) => {
   try {
-    const videos = await Reaction.find({ userId: req.currentUser?.id }).populate(
+    const videos = await Reaction.find({ userId: req.currentUser?.id, reaction: 'like' }).populate(
       'videoId'
     );
 
