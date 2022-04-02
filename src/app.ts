@@ -66,4 +66,12 @@ export class Application {
       console.log(`Node-streaming-app is running on PORT: ${process.env.PORT}`);
     });
   }
+
+  public async startTest() {
+    await this.setup();
+    await this.middlewares();
+    await this.routes();
+
+    return this.app;
+  }
 }
