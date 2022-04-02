@@ -1,5 +1,7 @@
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import mongoose from 'mongoose';
+import { Application } from '../app';
+import { Express } from 'express';
 
 let mongo: any;
 
@@ -12,13 +14,13 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   const collections = await mongoose.connection.db.collections();
-  
+
   for (let collection of collections) {
     await collection.deleteMany({});
   }
 });
 
 afterAll(async () => {
-  await mongo.stop();
   await mongoose.connection.close();
 });
+

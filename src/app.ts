@@ -56,22 +56,25 @@ export class Application {
   }
 
   async start() {
-    await connect(process.env.MONGO_DB_URL as string);
-    console.log('Node-streaming-app is connected to DB');
+    if (process.env.NODE_ENV !== 'test') {
+      await connect(process.env.MONGO_DB_URL as string);
+      console.log('Node-streaming-app is connected to DB');
+    }
+
     await this.setup();
     await this.middlewares();
     await this.routes();
 
-    this.app.listen(process.env.PORT, () => {
-      console.log(`Node-streaming-app is running on PORT: ${process.env.PORT}`);
-    });
-  }
-
-  public async startTest() {
-    await this.setup();
-    await this.middlewares();
-    await this.routes();
-
-    return this.app;
+    if (process.env.NODE_ENV !== 'test') {
+      this.app.listen(process.env.PORT, () => {
+        console.log(
+          `Node-streaming-app is running on PORT: ${process.env.PORT}`
+        );
+      });
+    }
+    
+    if(process.env.NODE_ENV == 'test') {
+      return this.app;
+    }
   }
 }
