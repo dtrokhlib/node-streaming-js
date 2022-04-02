@@ -10,9 +10,8 @@ router.get(
   authRequired,
   async (req: Request, res: Response) => {
     try {
-      const videoId = new mongoose.Types.ObjectId(req.params.id);
 
-      const comments = await Comment.find(videoId);
+      const comments = await Comment.find({ videoId: req.params.id }).populate('userId');
 
       res.send(comments);
     } catch (err) {
@@ -37,7 +36,9 @@ router.post(
 
       await newComment.save();
 
-      res.send(newComment);
+      const comments = await Comment.find({ videoId: id }).populate('userId');
+
+      res.send(comments);
     } catch (err) {
       res.status(500).send({ err });
     }

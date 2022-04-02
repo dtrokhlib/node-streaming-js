@@ -9,12 +9,12 @@ const commentSchema = new mongoose.Schema(
   {
     userId: {
       type: mongoose.Types.ObjectId,
-      ref: 'users',
+      ref: 'User',
       required: true,
     },
     videoId: {
       type: mongoose.Types.ObjectId,
-      ref: 'users',
+      ref: 'Video',
       required: true,
     },
     comment: {

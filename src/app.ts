@@ -13,6 +13,8 @@ import { libraryRouter } from './routes/library';
 import { viewVideoRouter } from './routes/view-video';
 import { reactionRouter } from './routes/reaction';
 import { commentsRouter } from './routes/comments';
+import { profileRouter } from './routes/profile';
+import { favouritesRouter } from './routes/favourites';
 
 export class Application {
   app: Express;
@@ -33,6 +35,8 @@ export class Application {
     this.app.use(viewVideoRouter);
     this.app.use(reactionRouter);
     this.app.use(commentsRouter);
+    this.app.use(profileRouter);
+    this.app.use(favouritesRouter);
   }
 
   setup() {

@@ -29,13 +29,5 @@ router.get('/register', async (req: Request, res: Response) => {
 });
 
 
-router.get('/profile', authRequired, async (req: Request, res: Response) => {
-  res.render('profile', { menu: 'menu-authorized.ejs' });
-});
-
-router.get('/favourites', authRequired, async (req: Request, res: Response) => {
-  res.render('favourites', { menu: 'menu-authorized.ejs' });
-});
-
 
 export { router as defaultRouter };

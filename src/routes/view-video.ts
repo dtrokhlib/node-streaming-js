@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { authRequired } from '../middleware/authRequired';
 import { upload } from '../middleware/multer';
 import { IVideo } from '../model/interfaces/video.interface';
+import { Reaction } from '../model/Reaction';
 import { Video } from '../model/Video';
 
 const router = Router();
@@ -26,7 +27,26 @@ router.get(
         return res.status(400).send({ err: 'Video Id is not exist' });
       }
 
-      res.render('video-page-view', { video, menu: 'menu-authorized.ejs' });
+      video.views! += 1;
+      await video.save();
+
+      const reaction = await Reaction.find({ videoId: id });
+      const userReaction = await Reaction.findOne({
+        userId: req.currentUser?.id,
+      });
+
+      const like = reaction.filter((item) => item.reaction == 'like');
+      const dislike = reaction.filter((item) => item.reaction == 'dislike');
+
+      res.render('video-page-view', {
+        video,
+        reaction: {
+          like: like || [],
+          dislike: dislike || [],
+          userReaction: userReaction?.reaction || '',
+        },
+        menu: 'menu-authorized.ejs',
+      });
     } catch (err) {
       res
         .status(500)

@@ -40,9 +40,11 @@ const videoSchema = new mongoose.Schema(
       size: Number,
     },
     views: {
+      type: Number,
       default: 0,
     },
     rating: {
+      type: Number,
       default: 0,
     },
   },

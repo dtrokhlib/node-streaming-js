@@ -9,8 +9,6 @@ addCommentButton.addEventListener('click', async (e) => {
     comment: comment.value,
   };
 
-  console.log(data);
-
   const response = await fetch(`/comments/${document.URL.split('/')[4]}/add`, {
     method: 'POST',
     headers: {
@@ -20,6 +18,8 @@ addCommentButton.addEventListener('click', async (e) => {
   });
 
   const responseData = await response.json();
+
+  await renderComments(responseData);
 
   comment.value = '';
 });

@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import { authRequired } from '../middleware/authRequired';
 import { Reaction } from '../model/Reaction';
 import mongoose from 'mongoose';
+import { ratingUpdate } from '../helpers/ratingUpdate';
 
 const router = Router();
 
@@ -40,6 +41,8 @@ router.post(
       });
 
       await newReaction.save();
+
+      await ratingUpdate(videoId);    
 
       res.send(reaction);
     } catch (err) {}
