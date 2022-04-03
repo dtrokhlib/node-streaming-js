@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../model/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { IUser, IUserDocument } from '../model/interfaces/user.interface';
 
 const authVerification = async (
   req: Request,
