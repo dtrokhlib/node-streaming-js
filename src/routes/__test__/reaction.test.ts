@@ -19,6 +19,7 @@ it('like reaction success', async () => {
 
   const video = path.resolve(__dirname, './public/video.mp4');
   const image = path.resolve(__dirname, './public/image.jpg');
+  console.log(video, '\n', image);
 
   const uploadedVideo = await request(app)
     .post('/upload/video')
