@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon  --inspect",
     "test": "jest --watchAll --no-cache",
+    "test:ci": "jest",
     "start": "ts-node ./src/index.ts"
   },
   "jest": {
