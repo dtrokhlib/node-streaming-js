@@ -15,7 +15,7 @@ const authVerification = async (
 
     const { id } = jwt.verify(
       req.cookies.token,
-      process.env.CLIENT_SECRET!
+      process.env.CLIENT_SECRET! || 'testSecret'
     ) as JwtPayload;
 
     const user = await User.findById(id);
