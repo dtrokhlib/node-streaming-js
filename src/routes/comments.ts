@@ -10,7 +10,6 @@ router.get(
   authRequired,
   async (req: Request, res: Response) => {
     try {
-
       const comments = await Comment.find({ videoId: req.params.id }).populate('userId');
 
       res.send(comments);
@@ -35,7 +34,6 @@ router.post(
       });
 
       await newComment.save();
-
       const comments = await Comment.find({ videoId: id }).populate('userId');
 
       res.send(comments);

@@ -22,7 +22,7 @@ it('register validation error', async () => {
     .expect(400);
 });
 
-it('register validation error', async () => {
+it('register success', async () => {
   const appObj = new Application();
   const app = await appObj.start();
 
@@ -88,7 +88,7 @@ it('login validation failed', async () => {
     .expect(404);
 });
 
-it('login validation failed', async () => {
+it('login success', async () => {
   const appObj = new Application();
   const app = await appObj.start();
 

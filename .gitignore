@@ -2,3 +2,4 @@
 .env
 /src/public/media/video/*
 /src/public/media/placeholder/*
+/coverage

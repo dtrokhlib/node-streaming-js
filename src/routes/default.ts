@@ -1,5 +1,4 @@
 import { Router, Request, Response } from 'express';
-import { authRequired } from '../middleware/authRequired';
 
 const router = Router();
 
