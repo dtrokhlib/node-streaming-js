@@ -1,8 +1,6 @@
 import request from 'supertest';
 import { Application } from '../../app';
 import path from 'path';
-import mongoose from 'mongoose';
-import { Video } from '../../model/Video';
 import { Reaction } from '../../model/Reaction';
 
 it('like reaction success', async () => {

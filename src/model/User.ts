@@ -44,7 +44,10 @@ userSchema.statics.build = function (data: IUser) {
 
 userSchema.statics.token = async function (id: string) {
   try {
-    const token = await jwt.sign({ id }, process.env.CLIENT_SECRET!);
+    const token = await jwt.sign(
+      { id },
+      process.env.CLIENT_SECRET! || 'testSecret'
+    );
 
     return token;
   } catch (err) {
@@ -54,7 +57,7 @@ userSchema.statics.token = async function (id: string) {
 
 userSchema.pre('save', async function () {
   if (this.isModified('password')) {
-    const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS));
+    const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUNDS || 10));
     const hashedPassword = await bcrypt.hash(this.password, salt);
     this.password = hashedPassword;
   }

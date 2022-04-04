@@ -46,7 +46,7 @@ export class Application {
     this.app.use(bodyParser.json());
     this.app.use(
       session({
-        secret: 'keyboard cat',
+        secret: process.env.SECRET_SESSION || 'keyboard cat',
         resave: false,
         saveUninitialized: true,
         cookie: { secure: true },
@@ -66,7 +66,7 @@ export class Application {
     await this.routes();
 
     if (process.env.NODE_ENV !== 'test') {
-      this.app.listen(process.env.PORT, () => {
+      this.app.listen(process.env.PORT || 3000, () => {
         console.log(
           `Node-streaming-app is running on PORT: ${process.env.PORT}`
         );

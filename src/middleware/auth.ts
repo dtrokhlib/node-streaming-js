@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { User } from '../model/User';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { IUser, IUserDocument } from '../model/interfaces/user.interface';
 
 const authVerification = async (
   req: Request,
@@ -15,7 +14,7 @@ const authVerification = async (
 
     const { id } = jwt.verify(
       req.cookies.token,
-      process.env.CLIENT_SECRET!
+      process.env.CLIENT_SECRET! || 'testSecret'
     ) as JwtPayload;
 
     const user = await User.findById(id);
